@@ -27,7 +27,7 @@
             if ($password == $row['password']) {
                 // Login successful, create session variables
                 $_SESSION['loggedin'] = true;
-                $_SESSION['id'] = $row['id'];
+                $_SESSION['user_id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
 
                 // Redirect to user Member or home page
