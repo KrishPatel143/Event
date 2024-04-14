@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2024 at 11:20 AM
+-- Generation Time: Apr 14, 2024 at 06:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,39 +24,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `event_device`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` varchar(50) NOT NULL,
-  `reg_date` timestamp NOT NULL DEFAULT current_timestamp()
+DROP TABLE IF EXISTS `event_device`;
+CREATE TABLE `event_device` (
+  `event_id` int(11) NOT NULL,
+  `device_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `event_device`
+--
+
+INSERT INTO `event_device` (`event_id`, `device_id`) VALUES
+(2, 6),
+(3, 6);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `users`
+-- Indexes for table `event_device`
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+ALTER TABLE `event_device`
+  ADD PRIMARY KEY (`event_id`,`device_id`),
+  ADD KEY `device_id` (`device_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Constraints for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `users`
+-- Constraints for table `event_device`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `event_device`
+  ADD CONSTRAINT `event_device_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`),
+  ADD CONSTRAINT `event_device_ibfk_2` FOREIGN KEY (`device_id`) REFERENCES `devices` (`device_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
