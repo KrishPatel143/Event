@@ -19,12 +19,12 @@
             </div>
 
             <div class="navbar-menu">
+                <a href="#Member">Dashboard</a>
                 <a href="#Profile_Details">Profile</a>
-                <a href="#Member">Member</a>
                 <a href="#Devices">Devices</a>
                 <a href="#Events">Registered Events</a>
             </div>
-            <a href="" class="logout-btn">Logout</a>
+            <a href="Logout.php" class="logout-btn">Logout</a>
         </div>
 
         <div class="main-content">
@@ -94,19 +94,10 @@
                             </thead>
                             <tbody>
                             <?php 
-                            // Fetch devices for the logged-in user
                             session_start();
                             include 'db_connect.php';
 
                             $userId = 1;
-                            // Check if the user is logged in and retrieve their ID from the session
-                            // if (isset($_SESSION['user_id'])) {
-                            //     $userId = $_SESSION['user_id'];
-                            // } else {
-                            //     // Redirect to login page if the user is not logged in
-                            //     header('Location: login.php');
-                            //     exit;
-                            // }
 
                             $devicesQuery = "SELECT * FROM devices WHERE user_id = ?";
                             $devicesStmt = $conn->prepare($devicesQuery);
@@ -118,7 +109,6 @@
                                     <td><?php echo htmlspecialchars($device['name']); ?></td>
                                     <td><?php echo htmlspecialchars($device['description']); ?></td>
                                     <td>
-                                        <!-- Fetch and list events for this device -->
                                         <?php
                                         $eventsQuery = "SELECT e.* FROM events e 
                                                         INNER JOIN Event_device ed ON e.event_id = ed.event_id
@@ -128,7 +118,6 @@
                                         $eventsStmt->execute();
                                         $eventsResult = $eventsStmt->get_result();
                                         
-                                        // List all events associated with this device
                                         while ($event = $eventsResult->fetch_assoc()) {
                                             echo "<div>" . htmlspecialchars($event['title']) . "</div>";
                                         }

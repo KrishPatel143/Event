@@ -11,8 +11,6 @@ html {
 
 body {
     font-family: 'Arial', sans-serif;
-    height: 2000px;
-    /* Temporarily make the body height larger to show the scrollbar */
 }
 
 header {
@@ -59,14 +57,11 @@ header {
     padding-bottom: 7px;
 }
 
-/* Scrollbar Styles */
-/* Works on Firefox */
 * {
     scrollbar-width: auto;
     scrollbar-color: #1a73e8 #e0e0e0;
 }
 
-/* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
     width: 16px;
 }
@@ -81,15 +76,10 @@ header {
     border: 4px solid #e0e0e0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
-        /* Hide the navigation items on mobile */
     }
-
-    /* Additional responsive navigation styles can be added here */
-    /* Implement a toggle button for mobile navigation */
 }
 
 
@@ -104,66 +94,46 @@ header {
 
 
 
-/* Add this to your existing styles.css file */
 
 .home-section {
     text-align: center;
     padding: 100px 20px;
-    /* Adjust padding as needed */
     background: #f8f9fa;
-    /* Light grey background, adjust color as needed */
 }
 
 .tagline {
     font-size: 2.5rem;
-    /* Large font size for the tagline */
     color: #333;
-    /* Dark grey color for text, adjust as needed */
     margin-bottom: 20px;
-    /* Spacing between the tagline and the button */
 }
 
 .join-us-btn {
     font-size: 1.2rem;
-    /* Font size for the button text */
     padding: 10px 30px;
-    /* Padding inside the button */
     background-color: #1a73e8;
-    /* Blue background color for the button */
     color: white;
-    /* Text color for the button */
     border: none;
-    /* No border */
     border-radius: 5px;
-    /* Rounded corners for the button */
     cursor: pointer;
-    /* Cursor to indicate it's clickable */
     transition: background-color 0.3s ease;
-    /* Transition for the hover effect */
 }
 
 .join-us-btn:hover {
     background-color: #0f5abd;
-    /* Darker blue on hover */
 }
 
-/* Responsive Design for the Home Section */
 @media (max-width: 768px) {
     .home-section {
         padding: 50px 20px;
-        /* Smaller padding on mobile */
     }
 
     .tagline {
         font-size: 1.75rem;
-        /* Smaller font size for the tagline on mobile */
     }
 
     .join-us-btn {
         font-size: 1rem;
-        /* Smaller font size for the button text on mobile */
         padding: 8px 25px;
-        /* Smaller padding inside the button on mobile */
     }
 }
 
@@ -173,21 +143,15 @@ header {
 
 
 
-/* Enhanced Headings for Events Sections */
 .events-section-heading h2,
 .past-events-section-heading h2 {
     text-align: center;
     font-size: 2.5rem;
-    /* Larger font size for emphasis */
     color: #1a73e8;
-    /* Use a theme color for the text */
     margin-top: 60px;
-    /* More space above the heading */
     margin-bottom: 30px;
-    /* More space below the heading before the section starts */
     position: relative;
     padding-bottom: 15px;
-    /* Space for the underline or decorative element */
 }
 
 /* Adding a pseudo-element for an underline or decorative bar */
@@ -608,9 +572,8 @@ header {
 
 
 
-/* Footer Styles */
 .simple-footer {
-    background-color: #f8f9fa; /* Light grey background */
+    background-color: #f8f9fa;
     padding: 20px 0;
     text-align: center;
 }
@@ -619,26 +582,26 @@ header {
     list-style: none;
     padding: 0;
     margin: 0 auto;
-    display: inline-block; /* Align links in a row */
+    display: inline-block; 
 }
 
 .footer-links li {
     display: inline;
-    margin: 0 15px; /* Space out the links */
+    margin: 0 15px;
 }
 
 .footer-links a {
-    color: #333; /* Darker text for links */
+    color: #333; 
     text-decoration: none;
-    transition: color 0.2s ease-in-out; /* Smooth transition for hover effect */
+    transition: color 0.2s ease-in-out; 
 }
 
 .footer-links a:hover {
-    color: #1a73e8; /* Highlight color on hover */
+    color: #1a73e8;
 }
 
 .footer-credits {
     margin-top: 15px;
-    color: #666; /* Subtle text color for credits */
+    color: #666; 
     font-size: 0.875rem;
 }

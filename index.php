@@ -17,7 +17,7 @@
                 <li><a href="#events-section" class="nav-item">Event</a></li>
                 <li><a href="#past-events-container" class="nav-item">Past Events</a></li>
                 <li><a href="#about-section" class="nav-item">About Us</a></li>
-                <li><a href="login.html" class="nav-item">Login</a></li>
+                <li><a href="login.php" class="nav-item">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -35,9 +35,8 @@
         <div class="events-section" id="events-section">
             <div class="events-container">
                 <?php
-                include 'db_connect.php'; // Include your database connection file
+                include 'db_connect.php'; 
 
-                // SQL query to fetch events
                 $sql = "SELECT * FROM events WHERE is_published = 1 ORDER BY event_date ASC, event_time ASC";
                 $result = $conn->query($sql);
 
