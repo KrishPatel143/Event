@@ -97,15 +97,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr onclick="showEditEventModal()">
-                                    <td>Event 1</td>
-                                    <td>Description of Event 1</td>
-                                    <td>Devices Registered for Event 1</td>
-                                    <td>Date of Event 1</td>
-                                    <td>Time of Event 1</td>
-                                    <td>Location of Event 1</td>
-                                </tr>
+                                <?php 
+                                    include 'db_connect.php';
+
+                                    $publishedEventsQuery = "
+                                        SELECT e.*, GROUP_CONCAT(d.name SEPARATOR ', ') AS device_names
+                                        FROM events e
+                                        LEFT JOIN event_device ed ON e.event_id = ed.event_id
+                                        LEFT JOIN devices d ON ed.device_id = d.device_id
+                                        WHERE e.is_published = 1
+                                        GROUP BY e.event_id
+                                        ORDER BY e.event_date, e.event_time";
+                                    $publishedEventsResult = $conn->query($publishedEventsQuery);
+
+                                    if ($publishedEventsResult->num_rows > 0):
+                                        while($event = $publishedEventsResult->fetch_assoc()):
+                                ?>
+                                    <tr onclick="showEditEventModal(<?php echo $event['event_id']; ?>)">
+                                        <td><?php echo htmlspecialchars($event['title']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['description']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['device_names']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['event_date']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['event_time']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['location']); ?></td>
+                                    </tr>
+                                <?php 
+                                        endwhile;
+                                    else:
+                                        echo "<tr><td colspan='6'>No published events found</td></tr>";
+                                    endif;
+                                ?>
                             </tbody>
+                            
                             <tfoot>
                                 <tr id="new-event-row">
                                     <td colspan="4">
@@ -118,7 +141,6 @@
                     </div>
                 </div>
             </section>
-
             <section id="Unpublished_Events" class="section-content">
                 <div class="card">
                     <h3>Unpublished Events</h3>
@@ -138,6 +160,7 @@
                             </thead>
                             <tbody>
                                 <?php 
+                                include 'db_connect.php';
                                     // Query for fetching unpublished events along with device names
                                     $unpublishedEventsQuery = "
                                         SELECT e.*, GROUP_CONCAT(d.name SEPARATOR ', ') AS device_names
@@ -270,7 +293,7 @@
 
                 <div class="modal-content-Event">
                     <span class="closeEvents" onclick="closeAddEventModal()">&times;</span>
-                    <form id="Event-Edit-Form">
+                    <form id="Event-Add-Form" method="post" action="add_event.php">
                         <input type="hidden" id="eventID" name="eventID">
                         <h2>Add Event:</h2>
 
@@ -291,9 +314,25 @@
 
                         <label for="deviceIDName">Select Devices:</label>
                         <select id="deviceIDName" name="deviceIDName[]" multiple>
-                            <option value="">OP1</option>
-                            <option value="">OP1</option>
-                            <option value="">OP1</option>
+                            <?php
+                                // Fetch all devices from the database
+                                $deviceQuery = "SELECT device_id, name FROM devices";
+                                $deviceResult = $conn->query($deviceQuery);
+
+                                // Check if we have any devices
+                                if ($deviceResult && $deviceResult->num_rows > 0):
+                                    // Output data of each row
+                                    while($device = $deviceResult->fetch_assoc()):
+                            ?>
+                                        <option value="<?php echo $device['device_id']; ?>">
+                                            <?php echo htmlspecialchars($device['name']); ?>
+                                        </option>
+                            <?php 
+                                    endwhile;
+                                else:
+                                    echo "<option>No devices found</option>";
+                                endif;
+                            ?>
                         </select>
 
                         <label for="EventStatus">Select Devices:</label>
