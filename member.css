@@ -1,0 +1,575 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: var(--color-bottom);
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100%;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #6F55A2;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-header {
+    width: 100px;
+    height: auto;
+}
+
+.navbar-logo {
+    width: 100%;
+
+}
+
+.navbar a,
+.logout-btn {
+    text-decoration: none;
+    color: #c2c2c2;
+    padding: 20px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    margin: 0px 20px 0 20px;
+}
+
+.navbar a:hover,
+.logout-btn:hover {
+    background-color: #B97871;
+    color: black;
+}
+
+
+.main-content {
+    margin-top: calc(85px);
+    flex-grow: 1;
+    padding: 30px;
+    background: #F1F3F5;
+    height: max-content;
+}
+
+
+.header {
+    background-color: #D8A264;
+    background: linear-gradient(to right, #B5BCC4, #D8A264);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    height: 150px;
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.info {
+    margin-right: 20px;
+
+}
+
+.avatar {
+    font-size: 150px; 
+    color: #4CAF50;
+}
+
+.user-details h1,
+.user-details p {
+    margin: 10px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+
+
+.navbar a.active,
+.logout-btn.active {
+    background-color: #5D0E41;
+}
+
+.card {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-icon {
+    position: absolute;
+    top: 15px;
+    right: 14px;
+    color: #5D0E41;
+    cursor: pointer;
+}
+
+#update-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: calc(100%-30px);
+}
+
+#update-form form {
+    position: relative;
+}
+
+.close-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #5D0E41;
+}
+
+#update-form h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#update-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+#update-form input[type="text"],
+#update-form input[type="email"],
+#update-form input[type="password"],
+#update-form input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#update-form button[type="submit"] {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#update-form button[type="submit"]:hover {
+    background-color: #004494;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 50px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+/* Devices Section */
+
+.section-content {
+    padding: 20px;
+}
+
+.device-table-container {
+    overflow-x: auto;
+    margin: 20px;
+}
+
+.device-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.device-table th, .device-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.device-table th {
+    background-color: #f2f2f2;
+}
+
+.device-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+.device-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.device-table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.device-table tbody td:last-child {
+    text-align: center;
+}
+
+.device-table tbody td:last-child button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.device-table tbody td:last-child button:hover {
+    background-color: #0056b3;
+}
+
+
+.close {
+    position: absolute;
+    top: 180px;
+    right: 380px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.add-device-button,
+.card .add-device-button {
+    width: 12rem;
+    height: 15rem;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    background: #f9f9f9;
+    margin: 10px;
+}
+
+.card .add-device-button .plus-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #007bff;
+    color: white;
+    font-size: 36px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card .add-device-button .plus-icon:hover {
+    background: #0056b3;
+    cursor: pointer;
+}
+
+.device-details {
+    display: block;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 50px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 15px;
+    margin-top: 100px;
+}
+
+#deviceEditForm {
+    color: #5D0E41;
+}
+
+#deviceEditForm h2,
+#deviceEditForm label,
+#deviceEditForm input[type="text"],
+#deviceEditForm input[type="file"],
+#deviceEditForm input[type="email"],
+#deviceEditForm input[type="checkbox"],
+#updateDeviceBtn,
+select {
+    display: block;
+    width: 100%;
+}
+
+select {
+    height: min-content;
+}
+
+option {
+    font-size: 17px;
+}
+
+#deviceEditForm input[type="text"],
+#deviceEditForm input[type="email"],
+#deviceEditForm input[type="checkbox"],
+select,
+#updateDeviceBtn,
+#deleteDeviceBtn,
+#AddDeviceBtn {
+
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#deviceEditForm label {
+    margin: 10px 0;
+}
+
+#deviceEditForm input[type="checkbox"] {
+    width: 40px;
+}
+
+#updateDeviceBtn,
+#deleteDeviceBtn,
+#AddDeviceBtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#updateDeviceBtn:hover {
+    background-color: #45a049;
+}
+
+
+.upload-btn-wrapper input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#deviceEditForm .for-image-input {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#deviceEditForm .for-image-input:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+/* Event Section */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+#eventEditForm {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+#eventEditForm h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#eventEditForm label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: bold;
+}
+
+#eventEditForm input[type="text"],
+#eventEditForm input[type="date"],
+#eventEditForm input[type="time"],
+#eventEditForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#eventEditForm input[type="submit"] {
+    cursor: pointer;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+#eventEditForm input[type="submit"]#updateEventBtn {
+    background-color: var(--color-top);
+    margin-right: 10px;
+}
+
+
+
+#eventEditForm input[type="submit"]#deleteEventBtn {
+    background-color: var(--color-middle-top);
+}
+
+#eventEditForm input[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+#eventEditFormAdmin {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+#eventEditFormAdmin h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#eventEditFormAdmin label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: bold;
+}
+
+#eventEditFormAdmin input[type="text"],
+#eventEditFormAdmin input[type="date"],
+#eventEditFormAdmin input[type="time"],
+#eventEditFormAdmin select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#eventEditFormAdmin input[type="submit"] {
+    cursor: pointer;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+#eventEditFormAdmin input[type="submit"]#updateEventBtn {
+    background-color: var(--color-top);
+    margin-right: 10px;
+}
+
+
+
+#eventEditFormAdmin input[type="submit"]#deleteEventBtn {
+    background-color: var(--color-middle-top);
+}
+
+#eventEditFormAdmin input[type="submit"]:hover {
+    opacity: 0.9;
+}

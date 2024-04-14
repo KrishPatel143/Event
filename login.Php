@@ -24,7 +24,7 @@
 
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
-            if (password_verify($password, $row['password'])) {
+            if ($password == $row['password']) {
                 // Login successful, create session variables
                 $_SESSION['loggedin'] = true;
                 $_SESSION['id'] = $row['id'];
