@@ -72,7 +72,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card">
                     <div id="profile-info">
                         <a href="#" class="edit-icon" onclick="updateform()">
-                            <i class="fas fa-edit"></i>
+                            edit
                         </a>
                         <h3>Profile Information</h3>
                         <p>Full Name: <?php echo $fullname ?>
@@ -82,9 +82,9 @@ if (isset($_SESSION['user_id'])) {
                     </div>
 
                     <div id="update-form" style="display : none;">
-                        <form>
+                        <form id="ProfileEditform" method="post" action="update_profile.php">
                             <a href="#" class="close-form" onclick="closeProfileEdit()"
-                                style="border:none; text-decoration: none;">X</a>
+                                style="border:none; text-decoration: none;">Close</a>
                             <h3>View or Update your personal Details :</h3>
                             <label for="name">Full Name:</label>
                             <input type="text" id="name" name="name" value="<?php echo $fullname; ?>">
@@ -158,8 +158,10 @@ if (isset($_SESSION['user_id'])) {
                                         </td>
                                         <td>
 
-                                            <button
-                                                onclick="showEditDeviceModal(<?php echo $device['device_id']; ?>)">Edit</button>
+                                            <button onclick="showEditDeviceModal(this)"
+                                                data-device-id="<?php echo $device['device_id']; ?>"
+                                                data-device-name="<?php echo htmlspecialchars($device['name']); ?>"
+                                                data-device-description="<?php echo htmlspecialchars($device['description']); ?>">Edit</button>
                                             <button
                                                 onclick="deleteDevice(<?php echo $device['device_id']; ?>)">Delete</button>
 
@@ -180,13 +182,12 @@ if (isset($_SESSION['user_id'])) {
                     </div>
 
 
-
                     <div id="deviceEditModel" class="modal">
                         <span class="close" onclick="closeEditDeviceModal()">&times;</span>
                         <div class="modal-content">
                             <form id="deviceEditForm" method="post" action="update_device.php">
                                 <input type="hidden" id="deviceID" name="deviceID">
-                                <h2>Edit Device / Add Device : </h2>
+                                <h2>Edit Device : </h2>
                                 <input type="hidden" id="editDeviceID" name="deviceID">
 
                                 <label for="deviceName">Device Name:</label>
@@ -214,8 +215,6 @@ if (isset($_SESSION['user_id'])) {
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                                     <input type="submit" id="updateDeviceBtn" name="updateDeviceBtn"
                                         value="Update Device" style="display: block;">
-                                    <!-- <input type="submit" id="deleteDeviceBtn" name="deleteDeviceBtn"
-                                        value="Delete Device" style="display: block;"> -->
 
                                 </div>
                             </form>
@@ -283,8 +282,8 @@ if (isset($_SESSION['user_id'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                include 'db_connect.php'; 
-                                
+                                include 'db_connect.php';
+
                                 $userId = $_SESSION['user_id'] ?? 1;
                                 $sql = "SELECT DISTINCT e.* FROM events e 
                                 INNER JOIN Event_device ed ON e.event_id = ed.event_id
@@ -339,15 +338,18 @@ if (isset($_SESSION['user_id'])) {
             var DeviceFormClose = document.getElementById("deviceAddModel");
             DeviceFormClose.style.display = "none";
         }
-        function showEditDeviceModal(deviceID) {
-            // Set the hidden deviceID input's value to the deviceID passed to the function
+        function showEditDeviceModal(button) {
+            var deviceID = button.dataset.deviceId;
+            var deviceName = button.dataset.deviceName;
+            var deviceDescription = button.dataset.deviceDescription;
+
             document.getElementById('editDeviceID').value = deviceID;
+            document.getElementById('deviceName').value = deviceName;
+            document.getElementById('deviceDescription').value = deviceDescription;
 
-
-            // Now display the modal
-            var DeviceEditForm = document.getElementById('deviceEditModel');
-            DeviceEditForm.style.display = 'block';
+            document.getElementById('deviceEditModel').style.display = 'block';
         }
+
 
         function deleteDevice(deviceID) {
 
