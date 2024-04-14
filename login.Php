@@ -25,7 +25,7 @@
             $row = $result->fetch_assoc();
             if ($password == $row['password']) {
                 $_SESSION['loggedin'] = true;
-                $_SESSION['id'] = $row['id'];
+                $_SESSION['user_id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
 
                 header("Location: Member.php");

@@ -3,7 +3,13 @@ include 'db_connect.php';
 
 session_start();
 
-    $userId = $_SESSION['user_id'] ?? 1;
+    if (isset($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
+    } else {
+        // Redirect to login page if the user is not logged in
+        header('Location: login.php');
+        exit;
+    }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     

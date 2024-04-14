@@ -97,7 +97,14 @@
                             session_start();
                             include 'db_connect.php';
 
-                            $userId = 1;
+//                            Check if the user is logged in and retrieve their ID from the session
+                            if (isset($_SESSION['user_id'])) {
+                                $userId = $_SESSION['user_id'];
+                            } else {
+                                // Redirect to login page if the user is not logged in
+                                header('Location: login.php');
+                                exit;
+                            }
 
                             $devicesQuery = "SELECT * FROM devices WHERE user_id = ?";
                             $devicesStmt = $conn->prepare($devicesQuery);
