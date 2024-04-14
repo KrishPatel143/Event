@@ -160,9 +160,10 @@
                     <div id="deviceEditModel" class="modal">
                         <span class="close" onclick="closeEditDeviceModal()">&times;</span>
                         <div class="modal-content">
-                            <form id="deviceEditForm">
+                            <form id="deviceEditForm" method="post" action="update_device.php">
                                 <input type="hidden" id="deviceID" name="deviceID">
                                 <h2>Edit Device / Add Device : </h2>
+                                <input type="hidden" id="editDeviceID" name="deviceID">
 
                                 <label for="deviceName">Device Name:</label>
                                 <input type="text" id="deviceName" name="deviceName" required>
@@ -172,9 +173,18 @@
 
                                 <label for="eventList">Select Events:</label>
                                 <select id="eventList" name="eventList[]" multiple>
-                                    <option value="1">Option1</option>
-                                    <option value="2">Option2</option>
-                                    <option value="3">Option3</option>
+                                <?php
+                                    include 'db_connect.php';
+
+                                    $sql = "SELECT event_id, title FROM events ORDER BY event_date ASC";
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value='" . $row['event_id'] . "'>" . htmlspecialchars($row['title']) . "</option>";
+                                        }
+                                    }
+                                ?>
                                 </select>
 
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -307,9 +317,15 @@
             DeviceFormClose.style.display = "none";
         }
         function showEditDeviceModal(deviceID) {
-            var DeviceEditForm = document.getElementById("deviceEditModel");
-            DeviceEditForm.style.display = "block";
-        }
+    // Set the hidden deviceID input's value to the deviceID passed to the function
+    document.getElementById('editDeviceID').value = deviceID;
+
+
+    // Now display the modal
+    var DeviceEditForm = document.getElementById('deviceEditModel');
+    DeviceEditForm.style.display = 'block';
+}
+
         function deleteDevice(deviceID) {
             
             console.log(deviceID);

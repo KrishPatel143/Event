@@ -3,32 +3,46 @@ include 'db_connect.php';
 session_start();
 
 // Check if user is logged in and has the right to delete the device
-if ( isset($_GET['deviceID'])) {
+if (isset($_GET['deviceID'])) {
     $deviceID = intval($_GET['deviceID']);
 
-    // Optionally check if the device belongs to the user
-    // This is important for preventing users from deleting devices that do not belong to them
+    // Begin transaction
+    $conn->begin_transaction();
 
-    // Prepare the SQL statement
-    $stmt = $conn->prepare("DELETE FROM devices WHERE device_id = ? ");
-    $stmt->bind_param("i", $deviceID);
-    
-    // Execute the statement
-    if ($stmt->execute()) {
-        // Check if any rows were actually deleted
+    try {
+        // Optionally check if the device belongs to the user
+        // You should have logic here to confirm that the device being deleted belongs to the logged-in user
+
+        // First, delete any references in the event_device table
+        $stmt = $conn->prepare("DELETE FROM event_device WHERE device_id = ?");
+        $stmt->bind_param("i", $deviceID);
+        $stmt->execute();
+
+        // Next, delete the device itself
+        $stmt = $conn->prepare("DELETE FROM devices WHERE device_id = ? ");
+        $stmt->bind_param("i", $deviceID);
+        $stmt->execute();
+
+        // If the device was deleted, commit the transaction
         if ($stmt->affected_rows > 0) {
+            $conn->commit();
             $successMsg = "Device deleted successfully.";
         } else {
-            $errorMsg = "No device found, or you do not have permission to delete this $deviceID device.";
+            // If no device was deleted, it may not exist or may not belong to the user
+            $conn->rollback();
+            $errorMsg = "No device found, or you do not have permission to delete this device.";
         }
-    } else {
-        $errorMsg = "Error deleting device.";
+        
+        $stmt->close();
+    } catch (mysqli_sql_exception $e) {
+        // If an error occurred, rollback the transaction
+        $conn->rollback();
+        $errorMsg = "Error deleting device: " . $e->getMessage();
     }
 
-    $stmt->close();
     $conn->close();
-    
-    // Redirect back to the Member with a message
+
+    // Redirect back to the dashboard with a message
     if (isset($successMsg)) {
         header('Location: Member.php?success=' . urlencode($successMsg));
     } else {
