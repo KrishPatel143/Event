@@ -7,7 +7,7 @@ html {
     background: var(--color-bottom);
 }
 
-.Member-container {
+.dashboard-container {
     display: flex;
     height: 100%;
 }
@@ -23,7 +23,7 @@ html {
     box-sizing: border-box;
     position: fixed;
     top: 0;
-    z-index: 1000;
+    z-index: 9;
 }
 
 .navbar-menu {
@@ -107,7 +107,7 @@ html {
 
 .navbar a.active,
 .logout-btn.active {
-    background-color: #5D0E41;
+    background-color: #d7a266;
 }
 
 .card {
@@ -120,7 +120,7 @@ html {
     position: absolute;
     top: 15px;
     right: 14px;
-    color: #5D0E41;
+    color: #d7a266;
     cursor: pointer;
 }
 
@@ -145,7 +145,7 @@ html {
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #5D0E41;
+    color: #d7a266;
 }
 
 #update-form h3 {
@@ -340,7 +340,7 @@ html {
 }
 
 #deviceEditForm {
-    color: #5D0E41;
+    color: #d7a266;
 }
 
 #deviceEditForm h2,
@@ -432,7 +432,6 @@ select,
 
 
 
-/* Event Section */
 
 .table-container {
     overflow-x: auto;
@@ -458,31 +457,62 @@ tr:hover {
     background-color: #f5f5f5;
 }
 
-#eventEditForm {
+.closeEvents {
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.closeEvents:hover,
+.closeEvents:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content-Event {
+    
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 15px;
+    z-index: 10;
+    margin-top: 100px;
+}
+
+#Event-Edit-Form {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: auto;
+    z-index: 10;
 }
 
-#eventEditForm h2 {
+#Event-Edit-Form h2 {
     color: #333;
     margin-bottom: 20px;
 }
 
-#eventEditForm label {
+#Event-Edit-Form label {
     display: block;
     margin-bottom: 5px;
     color: #666;
     font-weight: bold;
 }
 
-#eventEditForm input[type="text"],
-#eventEditForm input[type="date"],
-#eventEditForm input[type="time"],
-#eventEditForm select {
+#Event-Edit-Form input[type="text"],
+#Event-Edit-Form input[type="date"],
+#Event-Edit-Form input[type="time"],
+#Event-Edit-Form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -491,7 +521,7 @@ tr:hover {
     box-sizing: border-box;
 }
 
-#eventEditForm input[type="submit"] {
+#Event-Edit-Form input[type="submit"] {
     cursor: pointer;
     padding: 10px 15px;
     font-weight: bold;
@@ -501,75 +531,105 @@ tr:hover {
     transition: background-color 0.3s;
 }
 
-#eventEditForm input[type="submit"]#updateEventBtn {
-    background-color: var(--color-top);
+#Event-Edit-Form input[type="submit"]#updateEventBtn {
+    background-color: blueviolet;
     margin-right: 10px;
 }
 
-
-
-#eventEditForm input[type="submit"]#deleteEventBtn {
-    background-color: var(--color-middle-top);
+#Event-Edit-Form input[type="submit"]#deleteEventBtn {
+    background-color: blueviolet;
 }
 
-#eventEditForm input[type="submit"]:hover {
+#Event-Edit-Form input[type="submit"]#addEventBtn {
+    background-color: blueviolet;
+}
+
+#Event-Edit-Form input[type="submit"]:hover {
     opacity: 0.9;
 }
 
-#eventEditFormAdmin {
-    background-color: #ffffff;
+
+
+
+/* Members */
+
+/* Popup container */
+.Membermodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal content */
+  .modal-content-user {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: auto;
-}
+    border: 1px solid #888;
+    width: 30%; 
+    border-radius: 20px;/* Could be more or less, depending on screen size */
+  }
+  
+  /* Close button */
+  .closeUserForm {
+    color: #aaa;
+    float: right;
+    top: 20px;
+    right: 20px;
 
-#eventEditFormAdmin h2 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-#eventEditFormAdmin label {
-    display: block;
-    margin-bottom: 5px;
-    color: #666;
+    font-size: 28px;
     font-weight: bold;
-}
-
-#eventEditFormAdmin input[type="text"],
-#eventEditFormAdmin input[type="date"],
-#eventEditFormAdmin input[type="time"],
-#eventEditFormAdmin select {
+  }
+  
+  .closeUserForm:hover,
+  .closeUserForm:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Style form elements */
+  form {
+    display: grid;
+    gap: 10px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-}
-
-#eventEditFormAdmin input[type="submit"] {
-    cursor: pointer;
-    padding: 10px 15px;
-    font-weight: bold;
-    color: #ffffff;
+  }
+  
+  /* Style button container */
+  .button-container {
+    margin-top: 20px;
+  }
+  
+  input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-#eventEditFormAdmin input[type="submit"]#updateEventBtn {
-    background-color: var(--color-top);
-    margin-right: 10px;
-}
-
-
-
-#eventEditFormAdmin input[type="submit"]#deleteEventBtn {
-    background-color: var(--color-middle-top);
-}
-
-#eventEditFormAdmin input[type="submit"]:hover {
-    opacity: 0.9;
-}
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
