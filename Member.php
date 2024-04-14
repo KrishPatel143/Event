@@ -1,3 +1,31 @@
+<?php
+session_start();
+include 'db_connect.php';
+
+if (isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
+
+    $sql = "SELECT fullname, email, password, role FROM users WHERE id = $userId";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $fullname = $row["fullname"];
+            $email = $row["email"];
+            $password = $row["password"];
+            $role = $row["role"];
+        }
+    } else {
+        echo "No user found.";
+    }
+    $conn->close();
+} else {
+    header("Location: login.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,19 +40,19 @@
 
 <body>
 
-    <div class="Member-container" id= "Member">
+    <div class="Member-container" id="Member">
         <div class="navbar">
             <div class="navbar-header">
                 <img src="Images/Logo.png" alt="Website Logo" class="navbar-logo">
             </div>
 
             <div class="navbar-menu">
+                <a href="#Member">Dashboard</a>
                 <a href="#Profile_Details">Profile</a>
-                <a href="#Member">Member</a>
                 <a href="#Devices">Devices</a>
                 <a href="#Events">Registered Events</a>
             </div>
-            <a href="" class="logout-btn">Logout</a>
+            <a href="Logout.php" class="logout-btn">Logout</a>
         </div>
 
         <div class="main-content">
@@ -34,8 +62,8 @@
                         <i class="fas fa-user avatar"></i>
                     </div>
                     <div class="user-details">
-                        <h1>Logged IN Modi</h1>
-                        <p>Logged In User's Email</p>
+                        <h1><?php echo $fullname; ?> (<?php echo $role; ?>)</h1>
+                        <p><?php echo $email; ?></p>
                     </div>
                 </div>
             </div>
@@ -47,28 +75,29 @@
                             <i class="fas fa-edit"></i>
                         </a>
                         <h3>Profile Information</h3>
-                        <p>Full Name:
+                        <p>Full Name: <?php echo $fullname ?>
                         </p>
-                        <p>User Email:
+                        <p>User Email: <?php echo $email ?>
                         </p>
                     </div>
 
-                    <div id="update-form" style="display: none;">
+                    <div id="update-form" style="display : none;">
                         <form>
                             <a href="#" class="close-form" onclick="closeProfileEdit()"
                                 style="border:none; text-decoration: none;">X</a>
                             <h3>View or Update your personal Details :</h3>
                             <label for="name">Full Name:</label>
-                            <input type="text" id="name" name="name" value="">
+                            <input type="text" id="name" name="name" value="<?php echo $fullname; ?>">
 
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" value="" readonly style="cursor:not-allowed;">
+                            <input type="email" id="email" name="email" value="<?php echo $email; ?>" readonly
+                                style="cursor:not-allowed;">
 
                             <label for="password">Password:</label>
-                            <input type="text" id="password" name="password" value="">
+                            <input type="text" id="password" name="password" value="<?php echo $password; ?>">
 
                             <label for="usertype">User Type:</label>
-                            <input type="text" id="usertype" name="usertype" value="" readonly
+                            <input type="text" id="usertype" name="usertype" value="<?php echo $role; ?>" readonly
                                 style="cursor:not-allowed;">
 
                             <button type="submit">Update</button>
@@ -93,54 +122,50 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php 
-                            // Fetch devices for the logged-in user
-                            session_start();
-                            include 'db_connect.php';
+                                <?php
+                                include 'db_connect.php';
 
-//                            Check if the user is logged in and retrieve their ID from the session
-                            if (isset($_SESSION['user_id'])) {
-                                $userId = $_SESSION['user_id'];
-                            } else {
-                                // Redirect to login page if the user is not logged in
-                                header('Location: login.php');
-                                exit;
-                            }
+                                if (isset($_SESSION['user_id'])) {
+                                    $userId = $_SESSION['user_id'];
+                                } else {
+                                    header('Location: login.php');
+                                    exit;
+                                }
 
-                            $devicesQuery = "SELECT * FROM devices WHERE user_id = ?";
-                            $devicesStmt = $conn->prepare($devicesQuery);
-                            $devicesStmt->bind_param("i", $userId);
-                            $devicesStmt->execute();
-                            $devicesResult = $devicesStmt->get_result();
-                            while ($device = $devicesResult->fetch_assoc()): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($device['name']); ?></td>
-                                    <td><?php echo htmlspecialchars($device['description']); ?></td>
-                                    <td>
-                                        <!-- Fetch and list events for this device -->
-                                        <?php
-                                        $eventsQuery = "SELECT e.* FROM events e 
+                                $devicesQuery = "SELECT * FROM devices WHERE user_id = ?";
+                                $devicesStmt = $conn->prepare($devicesQuery);
+                                $devicesStmt->bind_param("i", $userId);
+                                $devicesStmt->execute();
+                                $devicesResult = $devicesStmt->get_result();
+                                while ($device = $devicesResult->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($device['name']); ?></td>
+                                        <td><?php echo htmlspecialchars($device['description']); ?></td>
+                                        <td>
+                                            <?php
+                                            $eventsQuery = "SELECT e.* FROM events e 
                                                         INNER JOIN Event_device ed ON e.event_id = ed.event_id
                                                         WHERE ed.device_id = ?";
-                                        $eventsStmt = $conn->prepare($eventsQuery);
-                                        $eventsStmt->bind_param("i", $device['device_id']);
-                                        $eventsStmt->execute();
-                                        $eventsResult = $eventsStmt->get_result();
-                                        
-                                        // List all events associated with this device
-                                        while ($event = $eventsResult->fetch_assoc()) {
-                                            echo "<div>" . htmlspecialchars($event['title']) . "</div>";
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
+                                            $eventsStmt = $conn->prepare($eventsQuery);
+                                            $eventsStmt->bind_param("i", $device['device_id']);
+                                            $eventsStmt->execute();
+                                            $eventsResult = $eventsStmt->get_result();
 
-                                        <button onclick="showEditDeviceModal(<?php echo $device['device_id']; ?>)">Edit</button>
-                                        <button onclick="deleteDevice(<?php echo $device['device_id']; ?>)">Delete</button>
+                                            while ($event = $eventsResult->fetch_assoc()) {
+                                                echo "<div>" . htmlspecialchars($event['title']) . "</div>";
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
 
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
+                                            <button
+                                                onclick="showEditDeviceModal(<?php echo $device['device_id']; ?>)">Edit</button>
+                                            <button
+                                                onclick="deleteDevice(<?php echo $device['device_id']; ?>)">Delete</button>
+
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
 
                             </tbody>
                             <tfoot>
@@ -172,7 +197,7 @@
 
                                 <label for="eventList">Select Events:</label>
                                 <select id="eventList" name="eventList[]" multiple>
-                                <?php
+                                    <?php
                                     include 'db_connect.php';
 
                                     $sql = "SELECT event_id, title FROM events ORDER BY event_date ASC";
@@ -183,7 +208,7 @@
                                             echo "<option value='" . $row['event_id'] . "'>" . htmlspecialchars($row['title']) . "</option>";
                                         }
                                     }
-                                ?>
+                                    ?>
                                 </select>
 
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -213,7 +238,7 @@
 
                                 <label for="eventList">Select Events:</label>
                                 <select id="eventList" name="eventList[]" multiple>
-                                <?php
+                                    <?php
                                     include 'db_connect.php';
 
                                     $sql = "SELECT event_id, title FROM events ORDER BY event_date ASC";
@@ -224,7 +249,7 @@
                                             echo "<option value='" . $row['event_id'] . "'>" . htmlspecialchars($row['title']) . "</option>";
                                         }
                                     }
-                                ?>
+                                    ?>
 
                                 </select>
 
@@ -257,17 +282,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- PHP code to fetch and display events -->
                                 <?php
-                                include 'db_connect.php'; // Your database connection file
-
+                                include 'db_connect.php'; 
+                                
                                 $userId = $_SESSION['user_id'] ?? 1;
                                 $sql = "SELECT DISTINCT e.* FROM events e 
                                 INNER JOIN Event_device ed ON e.event_id = ed.event_id
                                 INNER JOIN devices d ON ed.device_id = d.device_id
                                 WHERE d.user_id = ?
                                 ORDER BY e.event_date ASC, e.event_time ASC";
-                        
+
                                 $stmt = $conn->prepare($sql);
                                 $stmt->bind_param("i", $userId);
                                 $stmt->execute();
@@ -316,17 +340,17 @@
             DeviceFormClose.style.display = "none";
         }
         function showEditDeviceModal(deviceID) {
-    // Set the hidden deviceID input's value to the deviceID passed to the function
-    document.getElementById('editDeviceID').value = deviceID;
+            // Set the hidden deviceID input's value to the deviceID passed to the function
+            document.getElementById('editDeviceID').value = deviceID;
 
 
-    // Now display the modal
-    var DeviceEditForm = document.getElementById('deviceEditModel');
-    DeviceEditForm.style.display = 'block';
-}
+            // Now display the modal
+            var DeviceEditForm = document.getElementById('deviceEditModel');
+            DeviceEditForm.style.display = 'block';
+        }
 
         function deleteDevice(deviceID) {
-            
+
             console.log(deviceID);
             if (confirm('Are you sure you want to delete this device? This action cannot be undone.')) {
                 window.location.href = 'delete_device.php?deviceID=' + deviceID;
@@ -343,32 +367,32 @@
             ProfileClose.style.display = "none";
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-    const navbarLinks = document.querySelectorAll('.navbar-menu a');
-    const sections = document.querySelectorAll('.section');
-    
-    navbarLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                sections.forEach(section => {
-                    section.style.display = 'none';
+        document.addEventListener("DOMContentLoaded", function () {
+            const navbarLinks = document.querySelectorAll('.navbar-menu a');
+            const sections = document.querySelectorAll('.section');
+
+            navbarLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        sections.forEach(section => {
+                            section.style.display = 'none';
+                        });
+
+                        // Show the target section
+                        targetSection.style.display = 'block';
+
+                        // Scroll to the target section
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 70, // Adjust according to the height of the navbar
+                            behavior: 'smooth'
+                        });
+                    }
                 });
-                
-                // Show the target section
-                targetSection.style.display = 'block';
-                
-                // Scroll to the target section
-                window.scrollTo({
-                    top: targetSection.offsetTop - 70, // Adjust according to the height of the navbar
-                    behavior: 'smooth'
-                });
-            }
+            });
         });
-    });
-});
 
 
 

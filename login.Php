@@ -11,9 +11,8 @@
 
 <body>
     <?php
-    session_start(); // Start a new session or resume the existing one
-
-    include 'db_connect.php'; // Make sure your database connection is correct
+    session_start();
+    include 'db_connect.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $conn->real_escape_string($_POST['email']);
@@ -25,12 +24,10 @@
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             if ($password == $row['password']) {
-                // Login successful, create session variables
                 $_SESSION['loggedin'] = true;
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
 
-                // Redirect to user Member or home page
                 header("Location: Member.php");
                 exit();
             } else {
@@ -64,7 +61,7 @@
                 </div>
             </form>
             <div class="card-info">
-                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+                <p>Don't have an account? <a href="signup.Php">Sign up</a></p>
             </div>
         </div>
     </div>
