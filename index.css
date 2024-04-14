@@ -165,13 +165,11 @@ header {
     border-radius: 2px;
 }
 
-/* Responsive Design for Headings */
 @media (max-width: 768px) {
 
     .events-section-heading h2,
     .past-events-section-heading h2 {
         font-size: 1.75rem;
-        /* Slightly smaller text on smaller screens */
         margin-top: 40px;
         margin-bottom: 20px;
     }
@@ -179,7 +177,6 @@ header {
     .events-section-heading h2::after,
     .past-events-section-heading h2::after {
         width: 60%;
-        /* A bit wider on smaller screens for visibility */
     }
 }
 
@@ -195,12 +192,10 @@ header {
 
 
 
-/* Add this to your existing styles.css file */
 
 .events-section {
     padding: 50px 20px;
     background: #fff;
-    /* Change background color as needed */
     text-align: center;
 }
 
@@ -214,17 +209,11 @@ header {
 
 .event-card {
     width: 300px;
-    /* Set width for the event cards */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Shadow effect */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Transition for hover effect */
     margin-bottom: 20px;
-    /* Spacing between cards */
     background: #f8f9fa;
-    /* Light grey background for cards */
     border-radius: 8px;
-    /* Rounded corners for the cards */
     padding-bottom: 15px;
 }
 
@@ -232,36 +221,26 @@ header {
 .event-card .register-btn {
     padding: 10px 25px;
     background-color: #6F55A2;
-    /* Primary button color */
     color: #FFFFFF;
-    /* Text color for the button */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    /* Smooth transition for the hover effect */
     display: block;
-    /* Makes the button a block element */
     width: calc(100% - 30px);
-    /* Width adjusted to the padding of the card */
     margin: 10px auto;
-    /* Centers the button horizontally */
     text-align: center;
-    /* Ensures the text is centered in the button */
 }
 
 .event-card .register-btn:hover {
     background-color: #0f5abd;
-    /* Darker blue on hover */
 }
 
 
 
 .event-card:hover {
     transform: translateY(-5px);
-    /* Move card up slightly on hover */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    /* Enhanced shadow on hover */
 }
 
 .event-title {
@@ -273,11 +252,8 @@ header {
 .event-image {
     width: 100%;
     height: auto;
-    /* Maintain aspect ratio */
     border-top: solid 1px #ddd;
-    /* Separator style */
     border-bottom: solid 1px #ddd;
-    /* Separator style */
 }
 
 .event-date {
@@ -292,7 +268,6 @@ header {
     padding: 15px;
 }
 
-/* Responsive Design for the Events Section */
 @media (max-width: 768px) {
     .events-container {
         flex-direction: column;
@@ -301,7 +276,6 @@ header {
 
     .event-card {
         width: 80%;
-        /* Full-width cards on smaller screens */
         margin-bottom: 20px;
     }
 }
@@ -320,38 +294,21 @@ header {
 
 
 
-
-
-
-
-
-
-
-
-/* ... existing CSS ... */
-
-
-
 .past-events-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* Center the cards horizontally */
     gap: 20px;
-    /* Spacing between cards */
 }
 
 .past-event-card {
-    /* Same styles as .event-card with modifications for past events */
     width: 300px;
     margin: auto;
-    /* This will center the cards */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
     background: #fff;
     border-radius: 8px;
     position: relative;
-    /* For the absolute positioning of the button */
 }
 
 .past-event-card:hover {
@@ -361,13 +318,11 @@ header {
 
 .past-event-card:hover .event-image {
     filter: grayscale(100%);
-    /* Convert image to black and white on hover */
 }
 
 .past-event-card .event-finished-btn {
     padding: 10px 25px;
     background-color: #555;
-    /* Dark gray button color for contrast */
     color: #FFFFFF;
     border: none;
     border-radius: 4px;
@@ -381,24 +336,19 @@ header {
 
 .past-event-card .event-finished-btn:hover {
     background-color: #333;
-    /* Slightly darker gray on hover */
 }
 
-/* ... existing responsive CSS and other styles ... */
 
 
 
 
 
-/* ... existing CSS ... */
 
 .event-finished-message {
     height: 100vh;
-    /* Use the full height of the screen */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Center the message vertically and horizontally */
     text-align: center;
     padding: 20px;
 }
@@ -408,61 +358,42 @@ header {
     color: #333;
 }
 
-/* ... existing responsive CSS and other styles ... */
 
 
 
 
 
-/* ... existing CSS ... */
 
 .past-events-section {
     padding-top: 20px;
-    /* Space above the container box */
     padding-bottom: 20px;
-    /* Space below the container box */
     display: flex;
     justify-content: center;
-    /* Centers the content horizontally */
     align-items: center;
-    /* Centers the content vertically */
     min-height: 100vh;
-    /* Minimum height to take up full viewport height if content is less */
 }
 
 .past-events-container {
     margin-top: 1px;
-    /* Adjust the top margin as needed */
     margin-right: auto;
-    /* Automatically adjust the right margin */
     margin-bottom: 20px;
-    /* Adjust the bottom margin as needed */
     margin-left: auto;
-    /* Automatically adjust the left margin */
     padding: 20px;
-    /* Padding inside the container box */
     max-width: 1200px;
-    /* Maximum width of the container box */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 20px;
     background: #f8f9fa;
-    /* Background color of the container box */
     border-radius: 15px;
-    /* Rounded corners for the container box */
     transition: box-shadow 0.3s ease-in-out;
-    /* Transition for the box-shadow */
 }
 
 .past-events-container:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    /* Shadow effect on hover */
 }
 
-/* ... existing .past-event-card and other styles ... */
 
-/* ... existing responsive CSS and other styles ... */
 
 
 
@@ -481,40 +412,32 @@ header {
     justify-content: center;
     padding: 50px;
     gap: 20px;
-    /* Adds space between the image and the text */
 }
 
 .team-photo img {
     width: 100%;
     max-width: 400px;
-    /* Adjust based on your preference */
     border-radius: 10px;
-    /* Adds rounded corners to the image */
 }
 
 .about-info {
     flex: 1;
-    /* Takes up the remaining space */
     max-width: 600px;
-    /* Adjust based on your preference */
 }
 
 .about-info h2 {
     margin-bottom: 20px;
     color: #333;
-    /* Dark grey color for the heading */
 }
 
 .about-info p {
     margin-bottom: 20px;
     line-height: 1.6;
-    /* Improves readability */
 }
 
 .about-info button {
     padding: 10px 20px;
     background-color: #6F55A2;
-    /* Theme color */
     color: white;
     border: none;
     border-radius: 5px;
@@ -526,7 +449,6 @@ header {
     background-color: #0f5abd;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .about-section {
         flex-direction: column;
@@ -535,14 +457,11 @@ header {
 
     .team-photo img {
         max-width: 300px;
-        /* Smaller image on smaller screens */
         margin-bottom: 20px;
-        /* Adds space between the image and the text */
     }
 
     .about-info {
         max-width: 100%;
-        /* Allows the text to fill the container on smaller screens */
     }
 }
 
