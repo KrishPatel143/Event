@@ -121,7 +121,7 @@
 
             <section id="Unpublished_Events" class="section-content">
                 <div class="card">
-                    <h3>Unpulished Events</h3>
+                    <h3>Unpublished Events</h3>
                     <p>Events which are not available for the Visitors.</p>
 
                     <div class="published-event-table-container">
@@ -137,20 +137,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr onclick="showEditEventModal()">
-                                    <td>Event 1</td>
-                                    <td>Description of Event 1</td>
-                                    <td>Devices Registered for Event 1</td>
-                                    <td>Date of Event 1</td>
-                                    <td>Time of Event 1</td>
-                                    <td>Location of Event 1</td>
-                                </tr>
+                                <?php 
+                                    // Query for fetching unpublished events along with device names
+                                    $unpublishedEventsQuery = "
+                                        SELECT e.*, GROUP_CONCAT(d.name SEPARATOR ', ') AS device_names
+                                        FROM events e
+                                        LEFT JOIN event_device ed ON e.event_id = ed.event_id
+                                        LEFT JOIN devices d ON ed.device_id = d.device_id
+                                        WHERE e.is_published = 0
+                                        GROUP BY e.event_id
+                                        ORDER BY e.event_date, e.event_time";
+                                    $unpublishedEventsResult = $conn->query($unpublishedEventsQuery);
+
+                                    if ($unpublishedEventsResult->num_rows > 0):
+                                        while($event = $unpublishedEventsResult->fetch_assoc()):
+                                ?>
+                                    <tr onclick="showEditEventModal(<?php echo $event['event_id']; ?>)">
+                                        <td><?php echo htmlspecialchars($event['title']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['description']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['device_names']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['event_date']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['event_time']); ?></td>
+                                        <td><?php echo htmlspecialchars($event['location']); ?></td>
+                                    </tr>
+                                <?php 
+                                        endwhile;
+                                    else:
+                                        echo "<tr><td colspan='6'>No unpublished events found</td></tr>";
+                                    endif;
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
-
+         
             <section id="Members" class="section-content">
                 <div class="card">
                     <h3>Member</h3>
