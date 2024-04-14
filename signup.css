@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    line-height: 1.5;
+    background-color: #f1f3fb;
+    padding: 0 2rem;
+}
+
+.card {
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 425px;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(153, 153, 153, .25);
+    padding: .75rem;
+}
+
+.card-image {
+    padding-bottom: 65%;
+    background-image: url('https://assets.codepen.io/285131/coffee_1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.card-heading {
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    right: 10%;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #FFF;
+    line-height: 1.2;
+}
+
+.card-heading small {
+    display: block;
+    font-size: .75em;
+    font-weight: 400;
+    margin-top: .25em;
+    color: #FFF;
+}
+
+.card-form {
+    padding: 2rem 1rem 0;
+}
+
+.input {
+    position: relative;
+    padding-top: 1.5rem;
+}
+
+.input + .input {
+    margin-top: 1.5rem;
+}
+
+.input-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 1.25rem; /* Adjust as needed to fit your design */
+    margin-left: 0.5rem; /* Adjust as needed for spacing */
+    transition: all 0.25s ease;
+    pointer-events: none; /* Makes sure clicks go through to the input */
+    color: #8597a3;
+}
+
+.input-field {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #eee;
+    font-size: 1.125rem;
+    padding: 1.25rem 0.5rem 0.25rem 0.5rem; /* Add padding to the top to create space for the label */
+}
+
+.input-field:focus + .input-label,
+.input-field:valid + .input-label {
+    font-size: 0.85rem;
+    margin-top: 0;
+    color: #6658d3;
+}
+
+/* Additional styles for the select dropdown to align the "I am a..." label */
+.select-container {
+    position: relative;
+}
+
+.select-container .input-label {
+    position: absolute;
+    top: 0;
+    right: 0; /* Aligns the label to the right of the select dropdown */
+    margin-top: 1.25rem; /* Adjust as needed to fit your design */
+    margin-right: 0.5rem; /* Adjust as needed for spacing */
+}
+
+/* Style adjustments for dropdown to match other inputs */
+.select-container .input-field {
+    -webkit-appearance: none; /* Removes default styling on iOS */
+    -moz-appearance: none;    /* Removes default styling on Firefox */
+    appearance: none;         /* Removes default styling */
+    /* Add your custom styles for the dropdown */
+}
+
+.action {
+    margin-top: 2rem;
+}
+
+.action-button {
+    font-size: 1.25rem;
+    padding: 1em;
+    width: 100%;
+    background-color: #6658d3;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+    cursor: pointer;
+}
+
+.card-info {
+    padding: 1rem 1rem;
+    text-align: center;
+    font-size: .875rem;
+    color: #8597a3;
+}
+
+.card-info a {
+    color: #6658d3;
+    text-decoration: none;
+}
