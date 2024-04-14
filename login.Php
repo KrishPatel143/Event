@@ -30,8 +30,8 @@
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
 
-                // Redirect to user dashboard or home page
-                header("Location: dashboard.php");
+                // Redirect to user Member or home page
+                header("Location: Member.php");
                 exit();
             } else {
                 echo "<p>Invalid password. Please try again.</p>";

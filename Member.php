@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | User</title>
+    <title>Member | User</title>
     <link rel="stylesheet" href="member.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -12,7 +12,7 @@
 
 <body>
 
-    <div class="dashboard-container" id= "dashboard">
+    <div class="Member-container" id= "Member">
         <div class="navbar">
             <div class="navbar-header">
                 <img src="Images/Logo.png" alt="Website Logo" class="navbar-logo">
@@ -20,7 +20,7 @@
 
             <div class="navbar-menu">
                 <a href="#Profile_Details">Profile</a>
-                <a href="#dashboard">Dashboard</a>
+                <a href="#Member">Member</a>
                 <a href="#Devices">Devices</a>
                 <a href="#Events">Registered Events</a>
             </div>
@@ -136,8 +136,9 @@
                                     </td>
                                     <td>
 
-                                        <button onclick="showEditDeviceModal()">Edit</button>
-                                        <button>Delete</button>
+                                        <button onclick="showEditDeviceModal(<?php echo $device['device_id']; ?>)">Edit</button>
+                                        <button onclick="deleteDevice(<?php echo $device['device_id']; ?>)">Delete</button>
+
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -179,8 +180,8 @@
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                                     <input type="submit" id="updateDeviceBtn" name="updateDeviceBtn"
                                         value="Update Device" style="display: block;">
-                                    <input type="submit" id="deleteDeviceBtn" name="deleteDeviceBtn"
-                                        value="Delete Device" style="display: block;">
+                                    <!-- <input type="submit" id="deleteDeviceBtn" name="deleteDeviceBtn"
+                                        value="Delete Device" style="display: block;"> -->
 
                                 </div>
                             </form>
@@ -305,10 +306,18 @@
             var DeviceFormClose = document.getElementById("deviceAddModel");
             DeviceFormClose.style.display = "none";
         }
-        function showEditDeviceModal() {
+        function showEditDeviceModal(deviceID) {
             var DeviceEditForm = document.getElementById("deviceEditModel");
             DeviceEditForm.style.display = "block";
         }
+        function deleteDevice(deviceID) {
+            
+            console.log(deviceID);
+            if (confirm('Are you sure you want to delete this device? This action cannot be undone.')) {
+                window.location.href = 'delete_device.php?deviceID=' + deviceID;
+            }
+        }
+
         function updateform() {
             var Profile = document.getElementById("update-form");
             Profile.style.display = "block";

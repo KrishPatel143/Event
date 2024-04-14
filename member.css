@@ -7,7 +7,7 @@ html {
     background: var(--color-bottom);
 }
 
-.dashboard-container {
+.Member-container {
     display: flex;
     height: 100%;
 }

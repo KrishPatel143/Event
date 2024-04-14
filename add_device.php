@@ -33,11 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->commit();
 
     // Redirect or send back a success response
-    header('Location: dashboard.php?success=1');
+    header('Location: Member.php?success=1');
     exit();
 }
 
-// If the script is accessed without a POST request, redirect to the dashboard
-header('Location: dashboard.php');
+// If the script is accessed without a POST request, redirect to the Member
+header('Location: Member.php');
 exit();
 ?>
