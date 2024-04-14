@@ -34,7 +34,7 @@
                         <i class="fas fa-user avatar"></i>
                     </div>
                     <div class="user-details">
-                        <h1>Logged IN User Name</h1>
+                        <h1>Logged IN Modi</h1>
                         <p>Logged In User's Email</p>
                     </div>
                 </div>
