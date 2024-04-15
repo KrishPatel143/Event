@@ -23,6 +23,7 @@
             </ul>
         </nav>
     </header>
+    
     <div class="content">
 
         <div class="home-section" id="home-section">

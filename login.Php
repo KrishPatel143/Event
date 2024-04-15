@@ -18,7 +18,7 @@
         $email = $conn->real_escape_string($_POST['email']);
         $password = $_POST['password'];
 
-        $sql = "SELECT id, email, password FROM users WHERE email = '$email'";
+        $sql = "SELECT id, email, password,role FROM users WHERE email = '$email'";
         $result = $conn->query($sql);
 
         if ($result->num_rows == 1) {
@@ -28,7 +28,14 @@
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['email'] = $row['email'];
 
-                header("Location: Member.php");
+                if ($row['role'] ==  "Organizer") {
+                    header("Location: Administrator.php");
+                }
+                else {
+                    header("Location: Member.php");
+                    # code...
+                }
+
                 exit();
             } else {
                 echo "<p>Invalid password. Please try again.</p>";

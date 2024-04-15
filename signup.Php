@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="signup.css"> <!-- Assuming the same CSS as login for styling -->
+    <link rel="stylesheet" href="signup.css"> 
 </head>
 
 <body>
     <?php
-    include 'db_connect.php'; // Include your database connection
+    include 'db_connect.php'; 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve and sanitize user inputs
         $fullname = $conn->real_escape_string($_POST['fullname']);
         $email = $conn->real_escape_string($_POST['email']);
         $password = $conn->real_escape_string($_POST['password']);
@@ -23,11 +22,9 @@
         $emailDomain = substr(strrchr($email, "@"), 1);
         $role = ($emailDomain === 'organizer.com') ? 'Organizer' : 'Participant';
 
-        // SQL to insert new record
         $sql = "INSERT INTO users (fullname, email, password, role) VALUES ('$fullname', '$email', '$password', '$role')";
 
         if ($conn->query($sql) === TRUE) {
-            // Redirect to login page upon successful registration
             header("Location: login.php");
             exit();
         } else {
