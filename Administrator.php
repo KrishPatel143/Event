@@ -313,7 +313,7 @@ if (isset($_SESSION['user_id'])) {
 
             <span class="closeEvents" onclick="closeEditEventModal()">&times;</span>
             <div class="modal-content">
-                <form id="Event-Edit-Form">
+            <form id="Event-Edit-Form" method="post" action="edit_event.php">
                     <input type="hidden" id="eventID" name="eventID">
                     <h2>Edit Event</h2>
 
@@ -334,10 +334,27 @@ if (isset($_SESSION['user_id'])) {
 
                     <label for="deviceIDName">Select Devices:</label>
                     <select id="deviceIDName" name="deviceIDName[]" multiple>
-                        <option value="">OP1</option>
-                        <option value="">OP1</option>
-                        <option value="">OP1</option>
+                        <?php
+                            // Fetch all devices from the database
+                            $deviceQuery = "SELECT device_id, name FROM devices";
+                            $deviceResult = $conn->query($deviceQuery);
+
+                            // Check if we have any devices
+                            if ($deviceResult && $deviceResult->num_rows > 0):
+                                // Output data of each row
+                                while($device = $deviceResult->fetch_assoc()):
+                        ?>
+                                    <option value="<?php echo $device['device_id']; ?>">
+                                        <?php echo htmlspecialchars($device['name']); ?>
+                                    </option>
+                        <?php 
+                                endwhile;
+                            else:
+                                echo "<option>No devices found</option>";
+                            endif;
+                        ?>
                     </select>
+
 
                     <label for="EventStatus">Select Devices:</label>
                     <select id="EventStatus" name="EventStatus">
@@ -485,7 +502,8 @@ if (isset($_SESSION['user_id'])) {
             }
         }
 
-        function showEditEventModal() {
+        function showEditEventModal(eventid) {
+            document.getElementById('eventID').value = eventid; 
             var EventEditForm = document.getElementById("EventEditModel");
             EventEditForm.style.display = "block";
         }
