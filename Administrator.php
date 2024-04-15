@@ -169,7 +169,7 @@ if (isset($_SESSION['user_id'])) {
                                 if ($publishedEventsResult->num_rows > 0):
                                     while ($event = $publishedEventsResult->fetch_assoc()):
                                         ?>
-                                        <tr onclick="showEditEventModal(<?php echo $event['event_id']; ?>)">
+                                        <tr onclick="showEditEventModal(<?php echo $event['event_id']; ?>, '<?php echo addslashes(htmlspecialchars($event['title'])); ?>', '<?php echo addslashes(htmlspecialchars($event['description'])); ?>', '<?php echo addslashes(htmlspecialchars($event['event_date'])); ?>', '<?php echo addslashes(htmlspecialchars($event['event_time'])); ?>', '<?php echo addslashes(htmlspecialchars($event['location'])); ?>', '<?php echo addslashes(htmlspecialchars($event['device_names'])); ?>')">
                                             <td><?php echo htmlspecialchars($event['title']); ?></td>
                                             <td><?php echo htmlspecialchars($event['description']); ?></td>
                                             <td><?php echo htmlspecialchars($event['device_names']); ?></td>
@@ -231,7 +231,7 @@ if (isset($_SESSION['user_id'])) {
                                 if ($unpublishedEventsResult->num_rows > 0):
                                     while ($event = $unpublishedEventsResult->fetch_assoc()):
                                         ?>
-                                        <tr onclick="showEditEventModal(<?php echo $event['event_id']; ?>)">
+                                        <tr onclick="showEditEventModal(<?php echo $event['event_id']; ?>, '<?php echo addslashes(htmlspecialchars($event['title'])); ?>', '<?php echo addslashes(htmlspecialchars($event['description'])); ?>', '<?php echo addslashes(htmlspecialchars($event['event_date'])); ?>', '<?php echo addslashes(htmlspecialchars($event['event_time'])); ?>', '<?php echo addslashes(htmlspecialchars($event['location'])); ?>', '<?php echo addslashes(htmlspecialchars($event['device_names'])); ?>')">
                                             <td><?php echo htmlspecialchars($event['title']); ?></td>
                                             <td><?php echo htmlspecialchars($event['description']); ?></td>
                                             <td><?php echo htmlspecialchars($event['device_names']); ?></td>
@@ -502,11 +502,20 @@ if (isset($_SESSION['user_id'])) {
             }
         }
 
-        function showEditEventModal(eventid) {
-            document.getElementById('eventID').value = eventid; 
-            var EventEditForm = document.getElementById("EventEditModel");
-            EventEditForm.style.display = "block";
-        }
+        function showEditEventModal(eventId, eventName, eventDescription, eventDate, eventTime, eventLocation, deviceNames) {
+    // Set the value of hidden input for event ID
+    document.getElementById('eventID').value = eventId;
+
+    // Populate the form fields
+    document.getElementById('eventName').value = eventName;
+    document.getElementById('eventDescription').value = eventDescription;
+    document.getElementById('eventDate').value = eventDate;
+    document.getElementById('eventTime').value = eventTime;
+    document.getElementById('eventLocation').value = eventLocation;
+    var eventEditForm = document.getElementById("EventEditModel");
+    eventEditForm.style.display = "block";
+}
+
 
         function closeEditEventModal() {
             var EventFormClose = document.getElementById("EventEditModel");
