@@ -17,7 +17,6 @@
             <ul class="nav-links">
                 <li><a href="#home-section" class="nav-item active">Home</a></li>
                 <li><a href="#events-section" class="nav-item">Event</a></li>
-                <li><a href="#past-events-container" class="nav-item">Past Events</a></li>
                 <li><a href="#about-section" class="nav-item">About Us</a></li>
                 <li><a href="login.php" class="nav-item">Login</a></li>
             </ul>
@@ -28,7 +27,7 @@
 
         <div class="home-section" id="home-section">
             <h1 class="tagline">Welcome to Our Community</h1>
-            <button class="join-us-btn" onclick="location.href='login.php'">Join Us</button>
+            <button class="join-us-btn" onclick="location.href='signup.php'">Join Us</button>
         </div>
 
         <div class="events-section-heading">
@@ -40,7 +39,13 @@
                 <?php
                 include 'db_connect.php'; 
 
-                $sql = "SELECT * FROM events WHERE is_published = 1 ORDER BY event_date ASC, event_time ASC";
+                $sql = "SELECT e.*, GROUP_CONCAT(d.name SEPARATOR ', ') AS device_names
+                FROM events e
+                LEFT JOIN event_device ed ON e.event_id = ed.event_id
+                LEFT JOIN devices d ON ed.device_id = d.device_id
+                WHERE e.is_published = 1
+                GROUP BY e.event_id
+                ORDER BY e.event_date, e.event_time";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -49,7 +54,7 @@
                         echo "<h2 class='event-title'>" . htmlspecialchars($row['title']) . "</h2>";
                         echo "<p class='event-date'>Date: " . date('M d, Y', strtotime($row['event_date'])) . " at " . date('H:i', strtotime($row['event_time'])) . "</p>";
                         echo "<p class='event-description'>" . htmlspecialchars($row['description']) . "</p>";
-                        echo "<button class='register-btn' onclick='location.href=\"login.html\"'>Register</button>";
+                        echo "<p class='event-Devices'>Devices Registred :" . htmlspecialchars($row['device_names']) . "</p>";
                         echo "</div>";
                     }
                 } else {
@@ -77,18 +82,17 @@
                         <li>Hamza Yaqoob - UI/UX Designer</li>
                         <li>Ahmad Faraz - Database manager</li>
                         <li>Waqar - Backend Developer</li>
-                    </ol>
-                <button onclick="location.href='login.php'">Contact Us</button>
+                    </ol><br>
+                <button onclick="location.href='login.php'">Join Us</button>
             </div>
         </div>
 
         <footer class="simple-footer">
             <ul class="footer-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="past-events.html">Past Events</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
+            <li><a href="#home-section" class="nav-item active">Home</a></li>
+                <li><a href="#events-section" class="nav-item">Event</a></li>
+                <li><a href="#about-section" class="nav-item">About Us</a></li>
+                <li><a href="login.php" class="nav-item">Login</a></li>
             </ul>
             <p class="footer-credits">&copy; 2024 Cryptoshow. All rights reserved.</p>
         </footer>

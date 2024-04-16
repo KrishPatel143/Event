@@ -125,8 +125,7 @@ if (isset($_SESSION['user_id'])) {
                             <input type="text" id="password" name="password" value="<?php echo $password; ?>">
 
                             <label for="usertype">User Type:</label>
-                            <input type="text" id="usertype" name="usertype" value="<?php echo $role; ?>" readonly
-                                style="cursor:not-allowed;">
+                            <input type="text" id="usertype" name="usertype" value="<?php echo $role; ?>">
 
                             <button type="submit">Update</button>
                         </form>
